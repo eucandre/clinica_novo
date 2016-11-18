@@ -15,8 +15,15 @@ FUNCTION = ((u'Gerente','Gerente'),(u'Zelador(a)','Zelador(a)'),
 SEXO = ((u'Masculino','Masculino'),(u'Feminino','Feminino'))
 
 
-class Dentista(models.Model):
+class Base(models.Model):
+    name = models.CharField(max_length=150, unique = True)
+    sex = models.CharField(max_length=150, choices=SEXO)
+    email = models.EmailField()
+    phone = models.CharField(max_length=150)
+    active = models.BooleanField()
 
+
+class Dentista(models.Model):
     name = models.CharField(max_length=150, unique = True)
     sex = models.CharField(max_length=150, choices=SEXO)
     email = models.EmailField()
@@ -30,23 +37,25 @@ class Dentista(models.Model):
     class Meta:
         verbose_name_plural = "Dentistas"
 
-class Funcionario(Dentista, models.Model):
+class Funcionario(Base, models.Model):
 
-    name = Dentista.name
+    name = Base.name
     date_entry = models.DateField()
-    sex = Dentista.sex
+    sex = Base.sex
     function = models.CharField(max_length=150, choices = FUNCTION)
-    email = Dentista.email
-    phone = Dentista.phone
+    email = Base.email
+    phone = Base.phone
     street = models.CharField(max_length=150)
     district = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
     salary = models.FloatField()
-    active = Dentista.active
+    active = Base.active
 
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Funcionarios'
 
 class Cliente(models.Model):
 

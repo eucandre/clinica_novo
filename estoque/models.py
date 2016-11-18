@@ -27,6 +27,9 @@ class Produto(Base, models.Model):
     
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Produtos'
         
 class Retira_Produto(Base,models.Model):
 
@@ -37,7 +40,10 @@ class Retira_Produto(Base,models.Model):
     amout_refresh = models.CharField(max_length=150)# Sera atualizada pelo formulario
 
     def __unicode__(self):
-        return self.product
+        return self.product.__str__()
+
+    class Meta:
+        verbose_name_plural = 'Retira produtos'
 
 class Compra_Produto(Base,models.Model):
 
@@ -48,5 +54,7 @@ class Compra_Produto(Base,models.Model):
     date_vaidate = Base.date
 
     def __unicode__(self):
-        return self.product
+        return self.product.__str__()
 
+    class Meta:
+        verbose_name_plural = 'Compra produtos'
